@@ -43,6 +43,63 @@ a:hover{
  color: #ffff;
  transition: 1s ease-in ;
 }
+.display_news_container{
+ margin-top: 5.5rem;
+ padding: 1rem;
+ width: 100%;
+ background-color: inherit;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+.display_news_inner_container{
+ margin-top: 3rem;
+ width:100% ;
+ display: flex;
+ flex-direction: column;
+}
+.news_card_container{
+ width: 100%;
+ margin-bottom: 2rem;
+}
+.news_card{
+ width: 35%;
+ display: flex;
+ background-color: #ffff;
+ flex-direction: row;
+ justify-content: space-between;
+ border-radius: 5px;
+}
+.news_card:hover{
+ cursor: pointer;
+ transform: translate3d(5px,5px,5px);
+}
+.news_car_photoUrl{
+ border-radius: 10px;
+}
+.card_inner_container{
+ width: 100%;
+ padding-left: 5px;
+}
+.author_name_container,.news_title_container{
+ display: flex;
+ justify-content: space-evenly;
+ align-items: center;
+ width: 100%;
+}
+h4{
+ width: 50%;
+ font-size: small;
+}
+.author_name,.title_name{
+ width:100%
+}
+.button_container{
+ display: flex;
+ justify-content: space-evenly;
+ padding: 1rem;
+}
 .footer_container{
  margin-top: 1rem;
  position: absolute;
