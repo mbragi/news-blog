@@ -10,65 +10,49 @@
 </head>
 
 <body>
- <div class="navigation_container">
-  <div class="navigation_logo_container">
-   <img src="./src/assests/icons8-internet-50.png" alt="logo" class="navigation_logo">
-   <h2>NEWS BITS</h2>
+ <section>
+  <div class="navigation_container">
+   <div class="navigation_logo_container">
+    <img src="./src/assests/icons8-internet-50.png" alt="logo" class="navigation_logo">
+    <h2>NEWS BITS</h2>
+   </div>
+   <div>
+    <ul class="navigation_routes">
+     <a class="home">HOME</a>
+     <a class="contact" href="./src/pages/publish/publish.html">PUBLISH</a>
+     <a class="about">ABOUT</a>
+    </ul>
+   </div>
   </div>
-  <div>
-   <ul class="navigation_routes">
-    <a class="home">HOME</a>
-    <a class="about">ABOUT</a>
-    <a class="contact">CONTACT US</a>
-   </ul>
-  </div>
- </div>
- <div class="display_news_container">
-  <div class="search_bar_container">
-   <input type="text" class="search_bar_input" placeholder="search blog..." />
-   <button class="search_bar_button">search</button>
-  </div>
-  <div class="display_news_inner_container">
-   <div class="news_card_container">
-    <div class="news_card">
-     <img src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/626.jpg"
-      alt="image" name="avatar" width="150">
-     <div class="card_inner_container">
-      <div class="author_name_container">
-       <h4>AUTHOR NAME:</h4>
-       <p class="author_name" name="author">JOHN DOE</p>
-      </div>
-      <div class="news_title_container">
-       <h4>NEWS TITLE:</h4>
-       <p class="title_name" name="title">JOHN DOE</p>
-      </div>
-      <div class="button_container">
-       <a name="url">WEBSITE</a>
-       <a href="./src/pages/view.html" class="read">READ MORE</a>
-      </div>
-     </div>
+  <div class="display_news_container">
+   <div class="search_bar_container">
+    <input type="text" class="search_bar_input" placeholder="search blog..." />
+    <button class="search_bar_button">search</button>
+   </div>
+   <div class="display_news_inner_container">
+    <card class="news_card_container">
+    </card>
+   </div>
+   <div class="pagination_container">
+    <a>&#8592;</a>
+    <div class="page_number_container">
+     <div class="page_number">1</div>
     </div>
+    <a>&rarr;</a>
    </div>
   </div>
-  <div class="pagination_container">
-   <a>&#8592;</a>
-   <div class="page_number_container">
-    <div class="page_number">1</div>
+  <footer class="footer_container">
+   <div class="copyright">
+    copyright&copy; Bragi 2023
    </div>
-   <a>&rarr;</a>
-  </div>
- </div>
- <footer class="footer_container">
-  <div class="copyright">
-   copyright&copy; Bragi 2023
-  </div>
-  <p>TERMS AND CONDITIONS</p>
-  <div class="footer_links">
-   <img src="" alt="facebook" width="50">
-   <img src="" alt="LinkedIn" width="50">
-   <img src="" alt="Twitter" width="50">
-  </div>
- </footer>
+   <p>TERMS AND CONDITIONS</p>
+   <div class="footer_links">
+    <img src="" alt="facebook" width="50">
+    <img src="" alt="LinkedIn" width="50">
+    <img src="" alt="Twitter" width="50">
+   </div>
+  </footer>
+ </section>
 </body>
 <script src="./app.js"></script>
 
