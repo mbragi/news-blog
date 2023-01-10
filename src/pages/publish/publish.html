@@ -29,26 +29,38 @@
   <div class="form_container">
    <div class="form_inner_container">
     <div class="preview_content_container">
-     <div class="content_avatar_container">
-      <label for="upload">SELECT A IMAGE</label>
-      <button class="content_avatar_button">
-       <input type="file" id="avatar" class="content_avater_input">
-       SELECT
-      </button>
+     <div>
+      <div class="content_avatar_container">
+       <label for="upload">ADD AN IMAGE</label>
+       <div class="content_avatar_inner_container">
+        <img src="" alt="upload" class="preview_avatar">
+        <button class="content_avatar_button">
+         <input type="file" id="avatar" class="content_avatar_input">
+         upload
+        </button>
+       </div>
+      </div class="previewed_content">
+      <p>AUTHOR NAME:</p>
+      <p>TITLE:</p>
+      <p>URL:</p>
+     </div>
+     <div class="preview_content_button">
+      <button class="publish">PUBLISH</button>
+      <button class="cancel">CANCEL</button>
      </div>
     </div>
     <form method="post" class="content_form_container">
      <div class="content_author_container">
       <label for="author">AUTHOR NAME</label>
-      <input type="text" id='author' class="">
+      <input type="text" id='author' class="author">
      </div>
      <div class="content_title_container">
       <label for="title">NEWS TITLE</label>
-      <input type="text" id='title' class="">
+      <input type="text" id='title' class="title">
      </div>
      <div class="content_url_container">
       <label for="url">WEBSITE URL</label>
-      <input type="text" id='url' class="">
+      <input type="text" id='url' class="url">
      </div>
 
      <button type="submit" class="content_preview_button">PREVIEW</button>
@@ -69,5 +81,6 @@
   </footer>
  </section>
 </body>
+<script src=""></script>
 
 </html>
