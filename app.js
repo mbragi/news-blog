@@ -5,15 +5,6 @@ const httpFetchNewsData = async () => {
   await displayNews(data);
 };
 
-class News {
-  constructor(title, avatar, author, url, id) {
-    this.title = title;
-    this.avatar = avatar;
-    this.author = author;
-    this.url = url;
-    this.id = id;
-  }
-}
 class UI {
   addNewsList(news) {
     console.log(news);
@@ -48,8 +39,6 @@ const getNews = async () => {
 const displayNews = async (data) => {
   const ui = new UI();
   let newCollection = [...data];
-  console.log(newCollection, ui);
-
   newCollection.map((item) => {
     ui.addNewsList(item);
   });
