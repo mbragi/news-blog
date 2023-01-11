@@ -1,0 +1,12 @@
+{
+  "name": "news-blog",
+  "version": "1.0.0",
+  "description": "news blog sample application",
+  "main": "server.js",
+  "scripts": {
+    "start": " npm install && node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GAR MANJI MICHAEL (BRAGI)",
+  "license": "ISC"
+}
