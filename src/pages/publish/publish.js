@@ -1,23 +1,5 @@
 const base_url = "https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/";
-// cloudinary upload can only work with axios
 
-// const uploadFile = async (imageData) => {
-//   const data = new FormData();
-//   const cloudName = "mbrag";
-//   data.append("file", imageData);
-//   data.append("upload_preset", "my_preset");
-//   return axios
-//     .post(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, data, {
-//       onUploadProgress: (ProgressEvent) => {
-//         console.log((ProgressEvent.loaded / ProgressEvent.total) * 100);
-//       },
-//     })
-//     .then(async (res) => {
-//       console.log(res.data.secure_url);
-//       return res.data.secure_url;
-//     })
-//     .catch((error) => console.log(error.message));
-// };
 const showAlert = (message, className) => {
   const div = document.createElement("custom_alert");
   div.className = `alert ${className}`;
@@ -32,29 +14,29 @@ const showAlert = (message, className) => {
 
 const previewFormData = (data) => {
   let newObj = JSON.parse(data);
-  const container = document.querySelector(".content_avatar_container");
-  console.log(container);
-  const div = document.createElement("div");
-  div.className = "previewed_content";
-  div.innerHTML = `
+  let show = "show";
+  setLoading(false, "PREVIEW", "content_preview_button");
+  return (document.getElementById(`${show}`).innerHTML = `
     <p id="${newObj.newsId}">AUTHOR NAME: ${newObj.author}</p>
       <p>TITLE:  ${newObj.title}</p>
       <p >WEBSITE URL:  ${newObj.url}</p>
-  `;
-  container.appendChild(div);
+  `);
 };
 function clearFields() {
   document.getElementById("title").value = "";
   document.getElementById("author").value = "";
   document.getElementById("url").value = "";
 }
-function setLoading(bool) {
+function setLoading(bool, name, className) {
   if (bool === true) {
     // replace preview button
+    return (document.getElementById(`${className}`).innerHTML = `Loading...`);
   }
+  return (document.getElementById(`${className}`).innerHTML = `${name}`);
 }
 const httpCreateNewsStepOne = async (e) => {
   e.preventDefault();
+  setLoading(true, null, "content_preview_button");
   const title = document.getElementById("title").value,
     author = document.getElementById("author").value,
     url = document.getElementById("url").value;
@@ -75,12 +57,17 @@ const httpCreateNewsStepOne = async (e) => {
   localStorage.setItem("newsdata", data);
   const res = localStorage.getItem("newsdata");
   previewFormData(res);
-  clearFields();
   showAlert("success, upload an image to your news", "continue");
+  clearFields();
 };
 async function Publish() {
+  setLoading(true, null, "publish");
+
   try {
     const data = localStorage.getItem("news");
+    if (data === null) {
+      return showAlert("cannot publish empty news", "error");
+    }
     const res = await fetch(`${base_url}news`, {
       method: "post",
       headers: {
@@ -89,6 +76,7 @@ async function Publish() {
       data: data,
     });
     const news = await res.json();
+    setLoading(false, "PUBLISH", "publish");
     showAlert(`post successfully created for ${news.author}`, "success");
     console.log(await res.json());
   } catch (error) {
@@ -98,33 +86,40 @@ async function Publish() {
 async function Cancel() {
   clearFields();
   localStorage.clear();
+  return (document.querySelector("#show").innerHTML = `<p>AUTHOR NAME:</p>
+  <p>TITLE:</p>
+  <p>WEBSITE URL:</p>`);
 }
+const upload = async (e) => {
+  if (localStorage.getItem("newsdata") === null) {
+    return showAlert("Fill news content first.", "error");
+  }
+  const { name } = e.target;
+  let data = {};
+  data[name] = e.target.value;
+  const storageData = JSON.parse(localStorage.getItem("newsdata"));
+  const container = document.querySelector(".content_avatar_inner_container");
+  const img = document.querySelector(".preview_avatar");
+  // const btn = document.querySelector(".content_avatar_button");
+  img.innerHTML = `
+        <img src="${
+          storageData.Avatar ?? data.avatar
+        }" alt="upload" class="preview_avatar">
+    `;
+  document.replaceChild(container, img);
+  let newObj = { ...data, ...storageData };
+  localStorage.removeItem("newsdata");
+  delete newObj.newsId;
+  delete newObj.Avatar;
+  localStorage.setItem("news", JSON.stringify(newObj));
+  console.log(newObj);
+};
 document
   .querySelector(".content_avatar_input")
-  .addEventListener("change", async (e) => {
-    if (localStorage.getItem("newsdata") === null) {
-      return showAlert("Fill news content first.", "error");
-    }
-    const { name } = e.target;
-    let data = {};
-    data[name] = e.target.value;
-    const storageData = JSON.parse(localStorage.getItem("newsdata"));
-    // const container = document.querySelector(".content_avatar_inner_container");
-    // const img = document.querySelector(".preview_avatar");
-    // const btn = document.querySelector(".content_avatar_button");
-    // img.innerHTML = `
-    //     <img src="${
-    //       storageData.Avatar ?? data.avatar
-    //     }" alt="upload" class="preview_avatar">
-    // `;
-    // container.insertBefore(img, btn);
-    let newObj = { ...data, ...storageData };
-    localStorage.removeItem("newsdata");
-    delete newObj.newsId;
-    delete newObj.Avatar;
-    localStorage.setItem("news", JSON.stringify(newObj));
-    console.log(newObj);
-  });
+  .addEventListener("change", upload);
 document
   .getElementById("content_form_container")
   .addEventListener("submit", httpCreateNewsStepOne);
+
+document.querySelector(".publish").addEventListener("click", Publish);
+document.querySelector(".cancel").addEventListener("click", Cancel);
