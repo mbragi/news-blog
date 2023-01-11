@@ -11,7 +11,6 @@ const showAlert = (message, className) => {
     document.querySelector(".alert").remove();
   }, 3000);
 };
-
 const previewFormData = (data) => {
   let newObj = JSON.parse(data);
   let show = "show";
@@ -114,6 +113,7 @@ const upload = async (e) => {
   localStorage.setItem("news", JSON.stringify(newObj));
   console.log(newObj);
 };
+
 document
   .querySelector(".content_avatar_input")
   .addEventListener("change", upload);
