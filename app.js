@@ -7,9 +7,7 @@ const httpFetchNewsData = async () => {
     return arr_of_pages_index;
   } catch (error) {
     const ui = new UI();
-
     ui.setLoading(false, error.message, "news_card_container");
-
     setTimeout(() => {
       this.location.reload();
     }, 5000);
@@ -37,22 +35,22 @@ const get_Paginated_News = async (wasAButtonClicked, welcome_page_number) => {
   let card = await data.json();
   return displayNews(card, number, arr_of_news_pages);
 };
-
 class UI {
-  addNewsList(news) {
-    // console.log(news);
+  addNewsList(news, idx) {
+    const read_page = `./src/pages/view/view.html?id=${news.id}`;
+    const update_page = `./src/pages/update/update.html?id=${news.id}`;
     const card = document.querySelector("card");
     const newCard = document.createElement("div");
     newCard.className = "news_card";
+    newCard.setAttribute("key", idx);
     newCard.innerHTML = `
-      
-     <img src="${news.avatar}" alt="image" name="avatar" width="150">
+    <img src="${news.avatar}" alt="image" name="avatar" width="150">
       <div class="card_inner_container">
       <div class="author_name_container">
       <h4>AUTHOR NAME:</h4>
-       <p class="author_name" name="author">${news.author}</p>
+      <p class="author_name" name="author">${news.author}</p>
       </div>
-     <div class="news_title_container">
+      <div class="news_title_container">
       <h4>NEWS TITLE:</h4>
       <p class="title_name" name="title">${news.title}</p>
       </div>
@@ -61,14 +59,14 @@ class UI {
       <p class="title_name" name="title">${news.url}</p>
       </div>
       <div class="button_container">
-      <a name="url" class="web"  id="${news.id}">UPDATE</a>
-      <a class="read" id="${news.id}">READ MORE</a>
+      <a class="web" href="${update_page}">UPDATE</a>
+      <a class="read" href="${read_page}" >READ MORE</a>
      </div>
        </div>
        
     `;
-    // console.log(newCard, card);
     card.appendChild(newCard);
+    return;
   }
   setLoading(bool, message, className) {
     if (bool === true) {
@@ -80,15 +78,13 @@ class UI {
       return document.getElementById(`${className}`);
     }
   }
-
-  setPagination(number_of_paginated_page) {
-    let data = number_of_paginated_page;
+  setPagination(number_of_paginated_pages) {
+    let data = number_of_paginated_pages;
     const container = document.querySelector(".page_number_container");
     const child = document.createElement("div");
     child.className = "page_number";
     child.innerHTML = `
      <div class="page_number" id="${data}">${data}</div>
-
     `;
     container.appendChild(child);
   }
@@ -96,7 +92,7 @@ class UI {
 const getNews = () => {
   get_Paginated_News(false, 1);
   const ui = new UI();
-  ui.setLoading(true, null, "news_card_container");
+  // ui.setLoading(true, null, "news_card_container");
 };
 const displayNews = async (data, page, arr_of_pages_number) => {
   const ui = new UI();
@@ -106,23 +102,10 @@ const displayNews = async (data, page, arr_of_pages_number) => {
   });
   ui.setLoading(null, null, "news_card_container");
   let newCollection = data;
-  newCollection.map((item) => {
-    ui.addNewsList(item);
+  newCollection.map((item, index) => {
+    ui.addNewsList(item, index);
     // console.log(item);/
   });
   return;
 };
-const read = () => {
-  const get_id = document.querySelector(".read");
-  const value = get_id.getAttribute("id");
-  localStorage.setItem("viewID", JSON.stringify(value));
-  const next_page = `${
-    this.location.href.split("i")[0]
-  }src/pages/view/view.html`;
-  window.history.pushState({}, "", next_page);
-  window.location.reload();
-};
-read();
-
 document.addEventListener("DOMContentLoaded", getNews());
-// document.querySelector(".read").addEventListener("click", read());

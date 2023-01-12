@@ -40,11 +40,14 @@ const httpCreateNewsStepOne = async (e) => {
     author = document.getElementById("author").value,
     url = document.getElementById("url").value;
   if (title === "" || author === "" || url === "") {
-    return showAlert("Please fill in all fields", "error");
+    setTimeout(() => {
+      setLoading(false, "PREVIEW", "content_preview_button");
+      showAlert("Please fill in all fields", "error");
+    }, 2000);
+    return;
   }
   const get_all_news = await fetch(`${base_url}news`);
   const all_news = await get_all_news.json();
-  // console.log(all_news[0].avatar);
   const data = JSON.stringify({
     title: title,
     author: author,
@@ -58,6 +61,7 @@ const httpCreateNewsStepOne = async (e) => {
   previewFormData(res);
   showAlert("success, upload an image to your news", "continue");
   clearFields();
+  setLoading(false, "PREVIEW", "content_preview_button");
 };
 async function Publish() {
   setLoading(true, null, "publish");
@@ -65,6 +69,7 @@ async function Publish() {
   try {
     const data = localStorage.getItem("news");
     if (data === null) {
+      setLoading(false, "PUBLISH", "publish");
       return showAlert("cannot publish empty news", "error");
     }
     const res = await fetch(`${base_url}news`, {
