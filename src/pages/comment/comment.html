@@ -6,7 +6,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="../../../home.css">
- <link rel="stylesheet" href="update.css">
+ <link rel="stylesheet" href="comment.css">
  <title>NEWS APP</title>
 </head>
 
@@ -25,15 +25,25 @@
     </ul>
    </div>
   </div>
-  <div class="update_form_container">
-   <form action="" class="update_inner_container">
-    <div class="avater_input_container">
-     <img src="" alt="avatar">
-     <button class="avatar_button">
-      <input type="file">
-     </button>
+  <div class="comment_form_container">
+   <form action="" class="comment_inner_container">
+    <div class="avatar_input_container">
+     <img src="" alt="avatar" width="70%" style=" height: 100%; border-radius: 5px;">
+     <a class="avatar_button">
+      <input type="file" class="avatar_input">
+      UPLOAD
+     </a>
     </div>
-    <button type="submit" class="submit_button">UPLOAD</button>
+    <div class="name_input_container">
+     <label for="">NAME</label>
+     <input type="text" class="name_input">
+
+    </div>
+    <div class="comment_input_container">
+     <label for="">COMMENT</label>
+     <textarea name="" id="" cols="90" rows="5"></textarea>
+    </div>
+    <a type="submit" class="submit_button">SUBMIT</a>
    </form>
   </div>
   <footer class="footer_container">
