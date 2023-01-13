@@ -198,3 +198,13 @@ align-self: center;
   justify-content: center;
   align-items: center;
 }
+.page_number_inner {
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -81,6 +81,7 @@ async function Publish() {
     });
     const news = await res.json();
     setLoading(false, "PUBLISH", "publish");
+    document.querySelector(".avatar").src = `${news.avatar}`;
     showAlert(`post successfully created for ${news.author}`, "success");
     console.log(await res.json());
   } catch (error) {

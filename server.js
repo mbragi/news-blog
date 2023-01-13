@@ -1,8 +1,21 @@
-require("dotenv").config();
-console.log(process.env.PORT);
 const http = require("http");
-const PORT = 4000 || process.env.PORT;
-const server = http.createServer();
+const express = require("express");
+// require("dotenv").config();
+const cors = require("cors");
+const PORT = 4000;
+const app = express();
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+app.use(express.static(__dirname));
+app.get("/", (req, res) => {
+  console.log(__dirname);
+  res.sendFile(__dirname + "/index.html");
+});
+
+const server = http.createServer(app);
 server.listen(PORT, () => {
   console.log("server is ready!");
 });

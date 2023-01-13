@@ -7,14 +7,13 @@ function setSlides(avatar) {
   function changeImage() {
     const image = document.querySelector(".img");
     image.src = images[i].image;
-    console.log(images.length);
-    if (i < images.length - 1) {
+    if (i <= images.length - 1) {
       i++;
     } else {
       i = 0;
     }
     setTimeout(() => {
-      changeImage;
+      "changeImage";
     }, time);
     return image;
   }
@@ -31,7 +30,6 @@ function display_news_by_id(data) {
           </div>
           
          `;
-  console.log(child);
   return;
 }
 async function httpGet_Images(id) {
@@ -58,27 +56,25 @@ async function http_get_comments_id(id) {
   try {
     const res = await fetch(`${base_url}news/${id}/comments`);
     const data = await res.json();
-    //manipulate UI
     let comments = data;
-    // return data;
+    const comment = document.querySelector(".display_comment");
     comments.map((item) => {
-      const comment = document.querySelector(".display_comment");
-      return (comment.innerHTML = `
-        <div class="each_comment">
-        <img src="${item.avatar} alt="NO IMAGE" class="comment_avatar"/>
+      const child = document.querySelector(".each_comment");
+      child.innerHTML = `
+        <img src="${item.avatar}" alt="NO IMAGE" class="comment_avatar"/>
         <div class="comment">
         <div class="comment_inner">
-        <h5 class="comment_name">${item.name}</h5>
+        <h5 class="comment_name" id="${item.Id}">${item.name}</h5>
         <p class="comment_body" >${item.comment}</p>
         </div>
         <div class="delete_comment_container">
         <button id="${item.id}" class="delete_comment">x</button>
         </div>
         </div>
-        </div>
-        `);
+        `;
+      comment.replaceChildren(child);
+      return;
     });
-    console.log(comments);
   } catch (error) {
     console.log(error.message);
   }
@@ -99,3 +95,44 @@ this.onload = () => {
   const page_id = this.location.href.split("=")[1];
   return setPage(page_id);
 };
+const delete_news = async () => {
+  const id = this.location.href.split("=")[1];
+  try {
+    const res = await fetch(`${base_url}news/${id}`, {
+      method: "delete",
+    });
+    const response = await res.json();
+    console.log(response);
+    document.querySelector(".view_inner_container").remove();
+    const card = document.querySelector(".view_inner_container");
+    card.innerHTML = `
+    ${response}`;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const navigate_to_comment = async () => {
+  const id = this.location.href.split("=")[1];
+  this.history.pushState(
+    {},
+    "NEWSAPP",
+    ` ${this.location.origin}/src/pages/comment/comment.html?id=${id}`
+  );
+};
+const navigate_to_update_comment = async () => {
+  console.log("this");
+};
+const delete_comment = () => {
+  console.log("this");
+};
+document.querySelector(".delete").addEventListener("click", delete_news);
+document
+  .querySelector(".comment")
+  .addEventListener("click", navigate_to_comment);
+document
+  .querySelector(".comment_name")
+  .addEventListener("click", navigate_to_update_comment);
+document
+  .querySelector(".delete_comment")
+  .addEventListener("click", delete_comment);
