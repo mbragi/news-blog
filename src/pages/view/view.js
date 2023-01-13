@@ -114,11 +114,14 @@ const delete_news = async () => {
 
 const navigate_to_comment = async () => {
   const id = this.location.href.split("=")[1];
+  console.log(id);
   this.history.pushState(
     {},
     "NEWSAPP",
     ` ${this.location.origin}/src/pages/comment/comment.html?id=${id}`
   );
+  this.location.reload();
+  // console.log("here");
 };
 const navigate_to_update_comment = async () => {
   console.log("this");
@@ -128,7 +131,7 @@ const delete_comment = () => {
 };
 document.querySelector(".delete").addEventListener("click", delete_news);
 document
-  .querySelector(".comment")
+  .querySelector(".comment_button")
   .addEventListener("click", navigate_to_comment);
 document
   .querySelector(".comment_name")

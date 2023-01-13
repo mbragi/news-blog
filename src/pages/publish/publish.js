@@ -103,17 +103,13 @@ const upload = async (e) => {
   let data = {};
   data[name] = e.target.value;
   const storageData = JSON.parse(localStorage.getItem("newsdata"));
+  console.log(storageData);
   const container = document.querySelector(".content_avatar_inner_container");
   const img = document.querySelector(".preview_avatar");
   // const btn = document.querySelector(".content_avatar_button");
-  img.innerHTML = `
-        <img src="${
-          storageData.Avatar ?? data.avatar
-        }" alt="upload" class="preview_avatar">
-    `;
-  document.replaceChild(container, img);
+  document.querySelector(".avatar").src = `${storageData.Avatar}`;
   let newObj = { ...data, ...storageData };
-  localStorage.removeItem("newsdata");
+  // localStorage.removeItem("newsdata");
   delete newObj.newsId;
   delete newObj.Avatar;
   localStorage.setItem("news", JSON.stringify(newObj));
