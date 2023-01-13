@@ -1,47 +1,38 @@
 const base_url = "https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/";
 
-function showSlides() {
-  // let array = [...arr];
-  let slideIndex = 0;
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  console.log(slides);
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {
-    slideIndex = 1;
-  }
-  slides[slideIndex - 1].style.display = "block";
-  setTimeout(showSlides, 2000);
-}
-
 function setSlides(avatar) {
-  // const slides = document.getElementsByClassName("mySlides");
-  const child = (document.querySelector(
-    ".img"
-  ).innerHTML = `<img src="${avatar.image}" style="width:100% ; height: 200px; display="block" class="img">`);
-  console.log(child);
-  return child;
-  // showSlides();
+  let i = 0;
+  let images = avatar;
+  let time = 1000;
+  function changeImage() {
+    const image = document.querySelector(".img");
+    image.src = images[i].image;
+    console.log(images.length);
+    if (i < images.length - 1) {
+      i++;
+    } else {
+      i = 0;
+    }
+    setTimeout(() => {
+      changeImage;
+    }, time);
+    return image;
+  }
+  changeImage();
 }
 function display_news_by_id(data) {
-  console.log("image ---", data);
-  const container = document.querySelector(".view_inner_container");
-  const child = (document.createElement("div").className =
-    "reporter_info_container");
+  const child = document.querySelector(".reporter_info_container");
   child.innerHTML = `<img src="${data.avatar}" alt="avatar" width="100px">
           <div class="reporter_detail">
             <h4>AUTHOR NAME: ${data.author}</h4>
             <h4>NEWS TITLE: ${data.title}</h4>
             <h4>WEBSITE URL:${data.url} </h4>
-            <h4>UPDATED BY: ${data.avatar || data.author} </h4>
+            <h4>UPDATED BY: ${data.author} </h4>
           </div>
           
          `;
-  console.log(container, child);
-  container.appendChild(child);
+  console.log(child);
+  return;
 }
 async function httpGet_Images(id) {
   try {
@@ -57,7 +48,7 @@ async function http_get_news_by_id(id) {
   try {
     const res = await fetch(`${base_url}news/${id}`);
     const data = await res.json();
-    console.log("news ---", data);
+    // console.log("news ---", data);
     return display_news_by_id(data);
   } catch (error) {
     console.log(error.message);
@@ -67,9 +58,27 @@ async function http_get_comments_id(id) {
   try {
     const res = await fetch(`${base_url}news/${id}/comments`);
     const data = await res.json();
-    console.log(data);
     //manipulate UI
+    let comments = data;
     // return data;
+    comments.map((item) => {
+      const comment = document.querySelector(".display_comment");
+      return (comment.innerHTML = `
+        <div class="each_comment">
+        <img src="${item.avatar} alt="NO IMAGE" class="comment_avatar"/>
+        <div class="comment">
+        <div class="comment_inner">
+        <h5 class="comment_name">${item.name}</h5>
+        <p class="comment_body" >${item.comment}</p>
+        </div>
+        <div class="delete_comment_container">
+        <button id="${item.id}" class="delete_comment">x</button>
+        </div>
+        </div>
+        </div>
+        `);
+    });
+    console.log(comments);
   } catch (error) {
     console.log(error.message);
   }
@@ -83,9 +92,8 @@ const setPage = async (ID) => {
   //Get Images by ID
   let data = await httpGet_Images(JSON.parse(Id));
   // Show SLides
-  data.map((item) => {
-    return setSlides(item);
-  });
+
+  return setSlides(data);
 };
 this.onload = () => {
   const page_id = this.location.href.split("=")[1];

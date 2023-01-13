@@ -6,7 +6,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="../../../home.css">
- <link rel="stylesheet" href="update.css">
+ <link rel="stylesheet" href="../publish/publish.css">
  <title>NEWS APP</title>
 </head>
 
@@ -20,22 +20,54 @@
    <div>
     <ul class="navigation_routes">
      <a class="home" href="/index.html">HOME</a>
-     <a class="contact" href="./src/pages/publish/publish.html">PUBLISH</a>
-     <a class="about">ABOUT</a>
+     <a class="contact" href="../../../src/pages/publish/publish.html">PUBLISH</a>
+     <a class="about" href="/src/pages/about/about.html">ABOUT</a>
     </ul>
    </div>
   </div>
-  <div class="update_form_container">
-   <form action="" class="update_inner_container">
-    <div class="avater_input_container">
-     <img src="" alt="avatar">
-     <button class="avatar_button">
-      <input type="file">
-     </button>
+
+  <div class="form_container">
+   <div class="form_inner_container">
+    <div class="preview_content_container">
+     <div>
+      <div class="content_avatar_container">
+       <label for="upload">ADD AN IMAGE</label>
+       <div class="content_avatar_inner_container">
+        <img src="" alt="upload" class="preview_avatar">
+        <button class="content_avatar_button">
+         <input type="file" id="avatar" class="content_avatar_input" name="avatar">
+         upload
+        </button>
+       </div>
+      </div>
+      <div id="show" class='content'>
+       <!-- display news data by id here -->
+      </div>
+     </div>
+     <div class="preview_content_button">
+      <button type="submit" id="publish" class="publish">UPDATE</button>
+      <button class="cancel">DELETE</button>
+     </div>
     </div>
-    <button type="submit" class="submit_button">UPLOAD</button>
-   </form>
+    <form id="content_form_container">
+     <div class="content_author_container">
+      <label for="author">AUTHOR NAME</label>
+      <input type="text" id='author' class="author">
+     </div>
+     <div class="content_title_container">
+      <label for="title">NEWS TITLE</label>
+      <input type="text" id='title' class="title">
+     </div>
+     <div class="content_url_container">
+      <label for="url">WEBSITE URL</label>
+      <input type="text" id='url' class="url">
+     </div>
+
+     <button type="submit" id="content_preview_button" class="content_preview_button">PREVIEW</button>
+    </form>
+   </div>
   </div>
+
   <footer class="footer_container">
    <div class="copyright">
     copyright&copy; Bragi 2023
