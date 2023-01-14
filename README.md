@@ -20,8 +20,11 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:4000](http://localhost:4000) to view it in your browser.
 
-#KNOWN BUGS
-##Display of images on the create form
-##Pagination Buttons 
-##Search Bar 
-##on Click comment Name redirect to edit comment page
+
+
+
+*#KNOWN BUGS*
+*Display of images on the create form
+*Pagination Buttons 
+*#Search Bar 
+*#on Click comment Name redirect to edit comment page
