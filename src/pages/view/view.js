@@ -47,7 +47,7 @@ async function http_get_news_by_id(id) {
     const res = await fetch(`${base_url}news/${id}`);
     const data = await res.json();
     // console.log("news ---", data);
-    return display_news_by_id(data);
+    // return display_news_by_id(data);
   } catch (error) {
     console.log(error.message);
   }
