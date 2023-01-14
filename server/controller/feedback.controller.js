@@ -2,8 +2,8 @@ const { Feedback } = require("../model/feedback.model");
 
 async function httpCreateFeedBack(req, res) {
   try {
-    let { name, feedback } = req.body;
-    if (!(name && feedback)) {
+    let { Name, feedback } = req.body;
+    if (!(Name && feedback)) {
       res.status(400).json({
         message: "All fields required!",
         status: "Failed",

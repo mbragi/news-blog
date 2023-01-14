@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const feedback = new Schema(
   {
-    name: {
+    Name: {
       type: String,
       required: true,
     },
