@@ -24,7 +24,7 @@ Open [http://localhost:4000](http://localhost:4000) to view it in your browser.
 
 
 *#KNOWN BUGS*
-*Display of images on the create form
-*Pagination Buttons 
-*#Search Bar 
-*#on Click comment Name redirect to edit comment page
+1 Display of images on the create form
+2 Pagination Buttons 
+3 Search Bar 
+4 on Click comment Name redirect to edit comment page
