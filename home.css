@@ -87,7 +87,8 @@ a:hover{
  font-size: 3rem;
 }
 .news_card{
- width: 30.34%;
+ width: 30%;
+ min-width: 400px;
  display: flex;
  background-color: #ffff;
  flex-direction: row;
@@ -207,4 +208,7 @@ align-self: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.display_news_container{
+  min-width: 500px;
 }

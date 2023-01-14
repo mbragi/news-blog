@@ -13,7 +13,6 @@ this.onload = async () => {
   const id = this.location.href.split("=")[1];
   localStorage.setItem("update", id);
   let data = await http_get_news_by_id(id);
-  document.querySelector(".preview_avatar").src = `${data.avatar}`;
   return (document.querySelector(
     "#show"
   ).innerHTML = `<p>AUTHOR NAME:${data?.author}</p>
@@ -29,9 +28,10 @@ async function update_Image() {
     return;
   }
   const newObj = {};
-  newObj["avatar"] = avatar;
-  const call = fetch(`${base_url}news/${id}`, {
-    method: "put",
+  newObj["images"] = avatar;
+  newObj["newsId"] = id;
+  const call = fetch(`${base_url}news/${id}/images`, {
+    method: "post",
     headers: {
       "content-type": "application/json",
     },
@@ -41,7 +41,7 @@ async function update_Image() {
     .then(alert("success" || call.message))
     .catch((err) => err.message);
   console.log(call);
-  document.querySelector(".preview_avatar").src = `${call.avatar}`;
+  document.querySelector(".preview_avatar").src = `${call.images}`;
   return;
 }
 document.querySelector(".publish").addEventListener("click", update_Image);

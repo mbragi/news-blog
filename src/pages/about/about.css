@@ -16,7 +16,7 @@
 h4{
  font-weight: 700;
  font-size: 24px;
- width: 80%;
+ width: 70%;
 }
 .warning{
  color: red;
@@ -32,6 +32,18 @@ h4{
  border-radius: 5px;display: flex;
  flex-direction: column;
  justify-content: center;
- align-items: flex-start;
-
+ align-items: center;
+}
+.name_input,.feedback_input,button{
+  margin: 1rem;
+  padding: .5rem;
+  width: 78%;
+}
+input{
+  width: 97.5%;
+  padding: 7px;
+}
+button:hover{
+  cursor: pointer;
+  background-color: #01cb01;
 }

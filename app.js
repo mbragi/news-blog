@@ -23,6 +23,7 @@ const httpFetchNewsData = async () => {
 const get_Paginated_News = async (wasAButtonClicked, page_number) => {
   try {
     const totalPages = await httpFetchNewsData();
+    console.log(totalPages);
     if (wasAButtonClicked === false) {
       let page = page_number;
       const res = await fetch(`${url}/news?page=${page}&limit=10`);
@@ -229,3 +230,4 @@ const next = async () => {
 document.addEventListener("DOMContentLoaded", getNews(false, 1));
 document.querySelector(".back").addEventListener("click", back);
 document.querySelector(".next").addEventListener("click", next);
+// search Bar functionality
