@@ -3,21 +3,21 @@ const base_url = "https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/";
 function setSlides(avatar) {
   let i = 0;
   let images = avatar;
-  let time = 1000;
+  let time = 900;
   function changeImage() {
-    const image = document.querySelector(".img");
-    image.src = images[i].image;
     if (i <= images.length - 1) {
       i++;
     } else {
       i = 0;
     }
-    setTimeout(() => {
-      "changeImage";
-    }, time);
+    const image = document.querySelector(".img");
+    image.src = images[i].image;
     return image;
   }
-  changeImage();
+  setInterval(() => {
+    "changeImage";
+    changeImage();
+  }, time);
 }
 function display_news_by_id(data) {
   const child = document.querySelector(".reporter_info_container");
@@ -46,25 +46,26 @@ async function http_get_news_by_id(id) {
   try {
     const res = await fetch(`${base_url}news/${id}`);
     const data = await res.json();
-    // console.log("news ---", data);
-    // return display_news_by_id(data);
+    return display_news_by_id(data);
   } catch (error) {
     console.log(error.message);
   }
 }
 async function http_get_comments_id(id) {
+  const comment = document.querySelector(".display_comment");
   try {
     const res = await fetch(`${base_url}news/${id}/comments`);
     const data = await res.json();
     let comments = data;
-    const comment = document.querySelector(".display_comment");
-    comments.map((item) => {
-      const child = document.querySelector(".each_comment");
+    let arr = [];
+    comments.forEach((item) => {
+      console.log(item);
+      const child = document.querySelector(".each_comment").cloneNode(true);
       child.innerHTML = `
         <img src="${item.avatar}" alt="NO IMAGE" class="comment_avatar"/>
         <div class="comment">
         <div class="comment_inner">
-        <h5 class="comment_name" id="${item.Id}">${item.name}</h5>
+        <h5 class="comment_name" id="${item.id}">${item.name}</h5>
         <p class="comment_body" >${item.comment}</p>
         </div>
         <div class="delete_comment_container">
@@ -72,9 +73,18 @@ async function http_get_comments_id(id) {
         </div>
         </div>
         `;
-      comment.replaceChildren(child);
-      return;
+      arr.push(child);
     });
+    comment.append(...arr);
+
+    document
+      .querySelectorAll(".comment_name")
+      .forEach((el) =>
+        el.addEventListener("click", navigate_to_update_comment)
+      );
+    document
+      .querySelectorAll(".delete_comment")
+      .forEach((el) => el.addEventListener("click", delete_comment));
   } catch (error) {
     console.log(error.message);
   }
@@ -121,21 +131,38 @@ const navigate_to_comment = async () => {
     ` ${this.location.origin}/src/pages/comment/comment.html?id=${id}`
   );
   this.location.reload();
-  // console.log("here");
 };
-const navigate_to_update_comment = async () => {
-  console.log("this");
+const navigate_to_update_comment = async (e) => {
+  console.log("this", e.target.id);
+  const id = this.location.href.split("=")[1];
+  console.log(id);
+  this.history.pushState(
+    {},
+    "NEWSAPP",
+    ` ${this.location.origin}/src/pages/comment/comment.html?id=${id}&newsid=${e.target.id}`
+  );
+  this.location.reload();
 };
-const delete_comment = () => {
-  console.log("this");
+const delete_comment = async (e) => {
+  const comment_id = e.target.id;
+  const newsId = this.location.href.split("=")[1];
+  try {
+    const res = await fetch(
+      `${base_url}news/${newsId}/comments/${comment_id}`,
+      {
+        method: "delete",
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    this.alert("comment successfully deleted!" || error.message);
+    this.location.reload();
+  } catch (error) {
+    console.log(error.message);
+    this.alert(error.message);
+  }
 };
 document.querySelector(".delete").addEventListener("click", delete_news);
 document
   .querySelector(".comment_button")
   .addEventListener("click", navigate_to_comment);
-document
-  .querySelector(".comment_name")
-  .addEventListener("click", navigate_to_update_comment);
-document
-  .querySelector(".delete_comment")
-  .addEventListener("click", delete_comment);

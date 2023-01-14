@@ -78,6 +78,7 @@ class UI {
       
       `;
     card.appendChild(newCard);
+
     return;
   }
   setLoading(bool, message, className) {
@@ -98,7 +99,18 @@ class UI {
     child.innerHTML = `
      <a class="page_number" id="${data}">${data}</a>
     `;
-    container.appendChild(child);
+    container.append(child);
+    document.querySelectorAll(".page_number").forEach((el) =>
+      el.addEventListener("click", (e) => {
+        const id = e.target.id;
+        if (localStorage.getItem("current_page") === id) {
+          // Update Color for Each button
+          //function to update news items according to Button id
+          console.log(anchor);
+        }
+        return;
+      })
+    );
   }
 }
 const getNews = async (bool, number) => {
@@ -217,6 +229,3 @@ const next = async () => {
 document.addEventListener("DOMContentLoaded", getNews(false, 1));
 document.querySelector(".back").addEventListener("click", back);
 document.querySelector(".next").addEventListener("click", next);
-// document.querySelector(".page_number").addEventListener("click", (e) => {
-//   console.log(e.target.id);
-// });

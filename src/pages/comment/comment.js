@@ -39,3 +39,10 @@ const submit_comment = async (e) => {
 document
   .querySelector(".submit_button")
   .addEventListener("click", submit_comment);
+
+this.onload = () => {
+  console.log(this.location.href.split("&")[1]);
+  if (this.location.href.split("&")[1] === undefined) {
+    return;
+  }
+};
