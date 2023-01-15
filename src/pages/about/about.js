@@ -4,7 +4,7 @@ document.querySelector(".send").addEventListener("click", async (e) => {
   const feedBack = document.querySelector(".feedback");
 
   let newObj = {};
-  newObj["Name"] = name;
+  newObj["fullName"] = name;
   newObj["feedback"] = feedBack;
   const res = await fetch(`https://news-bits.herokuapp.com/feedback`, {
     method: "post",
