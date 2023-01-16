@@ -4,7 +4,7 @@
 This project was created using HTML, CSS and Vanilla JavaScript.
 A simple web page for blogging news, images and commentting on them.
 
-#The project renders certain components dynamically and Three programming paradigms were use (OOP , functional and Event-driven) programming.
+The project renders certain components dynamically and Three programming paradigms were used (OOP , functional and Event-driven) programming.
 
 
 # Production Url 
@@ -20,3 +20,11 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:4000](http://localhost:4000) to view it in your browser.
 
+
+
+
+### `KNOWN BUGS`
+1. Display of images on the create form
+2. Pagination Buttons 
+3. Search Bar 
+4. on Click comment Name redirect to edit comment page
